@@ -1,0 +1,135 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+    <title>QAD</title>
+
+    <link rel="stylesheet" href="http://www.jointjs.com/cms/styles/styles.api.min.css" />
+    <link rel="stylesheet" href="http://www.jointjs.com/css/rappid/v1.6/rappid.min.css" />
+
+    <link href="http://www.jointjs.com/demos/qad/css/header.css" rel="stylesheet"/>
+    <link href="http://www.jointjs.com/demos/qad/css/toolbar.css" rel="stylesheet"/>
+    <link href="http://www.jointjs.com/demos/qad/css/statusbar.css" rel="stylesheet"/>
+    <link href="http://www.jointjs.com/demos/qad/css/paper.css" rel="stylesheet"/>
+    <link href="http://www.jointjs.com/demos/qad/css/preview.css" rel="stylesheet"/>
+    <link href="http://www.jointjs.com/demos/qad/css/halo.css" rel="stylesheet"/>
+    <link href="http://www.jointjs.com/demos/qad/css/tooltip.css" rel="stylesheet"/>
+    <link href="http://www.jointjs.com/demos/qad/css/snippet.css" rel="stylesheet"/>
+    <link href="http://www.jointjs.com/demos/qad/css/dialog.css" rel="stylesheet"/>
+    <link href="http://www.jointjs.com/demos/qad/css/index.css" rel="stylesheet"/>
+
+  </head>
+  <body>
+
+    <script>
+      SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformToElement || function(toElement) {
+          return toElement.getScreenCTM().inverse().multiply(this.getScreenCTM());
+      };
+    </script>
+<!-- 
+    <header class="simple-header">
+
+    <div class="logo">
+        <a href="http://jointjs.com">JointJS</a>
+    </div>
+    <nav>
+        <ul>
+            <li ><a href="/download">Download</a></li>
+            <li class="active"><a href="/demos">Demos</a></li>
+            <li ><a href="/license">License</a></li>
+            <li ><a href="/tutorial">Tutorials</a></li>
+            <li ><a href="/docs">Documentation</a>
+              <ul class="submenu">
+                <li ><a href="/api">JointJS Core API</a></li>
+                <li ><a href="/rappid/docs">Rappid API</a></li>
+              </ul>
+            </li>
+            <li ><a href="/support">Support</a></li>
+            <li ><a href="/faq">FAQ</a></li>
+            <li ><a href="/about-rappid">Rappid</a></li>
+        </ul>
+    </nav>
+</header> -->
+
+
+    <main class="content layout_sidebar">
+
+     <!--  <nav class="sidebar-container demos">
+  <ul>
+    <li><a href="/demos">Rappid Demos</a>
+      <ul>
+        <li><a class="rappid-example-app-icon" href="/rappid">Rappid Example App</a></li>
+        <li><a class="charts" href="/demos/charts">Charts</a></li>
+        <li><a class="business-process" href="/rappid/bpmn">Business Process Model and Notation</a></li>
+        <li><a class="visualizer" href="/demos/javascript-ast">JavaScript AST visualizer</a></li>
+        <li><a class="shortest-path" href="/demos/shortest-path">Shortest Path Finder</a></li>
+        <li><a class="orgchart" href="/demos/orgchart">Orgchart</a></li>
+        <li><a class="dialog-generator" href="/demos/qad">Dialog Generator</a></li>
+      </ul>
+    </li>
+    <li><a href="/demos">Demos</a>
+      <ul>
+        <li><a class="finite-state-machines" href="/demos/fsa">Finite State Machines</a></li>
+        <li><a class="organizational-charts" href="/demos/org">Organizational Charts</a></li>
+        <li><a class="ER-Diagrams" href="/demos/erd">ER Diagrams</a></li>
+        <li><a class="discrete-event-system-specification" href="/demos/devs">Discrete Event System Specification</a></li>
+        <li><a class="chess" href="/demos/chess">Chess</a></li>
+        <li><a class="petri-nets" href="/demos/pn">Petri Nets</a></li>
+        <li><a class="links" href="/demos/links">Links</a></li>
+        <li><a class="UML-class-diagrams" href="/demos/umlcd">UML Class Diagrams</a></li>
+        <li><a class="UML-Statechart-Diagrams" href="/demos/umlsc">UML Statechart Diagrams</a></li>
+        <li><a class="logic-circuits" href="/demos/logic">Logic Circuits</a></li>
+        <li><a class="Smart-Routing" href="/demos/routing">Smart Routing</a></li>
+        <li><a class="paper_attributes" href="/demos/paper">Paper Attributes</a></li>
+      </ul>
+    </li>
+  </ul>
+
+</nav> -->
+
+
+     <!--  <header id="header">
+        <h1>QAD</h1>
+        <p>Dialog Generator (click a shape and then <q>Preview Dialog</q>)</p>
+      </header> -->
+ <div id="toolbar">
+          <button class="btn add-question">Add Question</button>
+          <button class="btn add-answer">Add Answer</button>
+          <button class="btn preview-dialog">Preview Dialog</button>
+          <button class="btn code-snippet">Code Snippet</button>
+          <button class="btn clear">Clear Canvas</button>
+          <button class="btn load-example">Load Example</button>
+        </div>
+      <section id="app">
+
+       
+
+        <div id="paper"></div>
+
+        <!-- <div id="statusbar">
+          <span class="message">Welcome to the QAD Tool!</span>
+        </div>
+ -->
+        <div id="preview" class="preview">
+        </div>
+
+      </section>
+
+    </main>
+
+    <script src="http://www.jointjs.com/js/vendor/jquery/jquery.min.js"></script>
+    <script src="http://www.jointjs.com/js/vendor/lodash/lodash.min.js"></script>
+    <script src="http://www.jointjs.com/js/vendor/backbone/backbone-min.js"></script>
+    <script src="http://www.jointjs.com/js/rappid/v1.6/rappid.min.js"></script>
+
+    <script src="http://www.jointjs.com/demos/qad/src/joint.shapes.qad.js"></script>
+    <script src="http://www.jointjs.com/demos/qad/src/selection.js"></script>
+    <script src="http://www.jointjs.com/demos/qad/src/factory.js"></script>
+    <script src="http://www.jointjs.com/demos/qad/src/snippet.js"></script>
+    <script src="http://www.jointjs.com/demos/qad/src/app.js"></script>
+    <script src="http://www.jointjs.com/demos/qad/src/index.js"></script>
+  </body>
+</html>

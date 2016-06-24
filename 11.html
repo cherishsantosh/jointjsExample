@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+   <link rel="stylesheet" href="css/joint.css" />
+   <link rel="stylesheet" href="css/rappid.min.css" />
+   <link rel="stylesheet" href="css/styles.api.min.css" />
+  
+  <script src="js/jquery.min.js"></script>
+  <script src="js/lodash.min.js"></script>
+  <script src="js/backbone-min.js"></script>
+  <script src="js/joint.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jointjs/0.9.10/joint.core.min.js"></script>
+  <script type="text/javascript" src="http://www.jointjs.com/cms/downloads/joint.shapes.devs.js"
+  ></script>
+  
+  <script src="js/joint.ui.halo.js"></script>
+  <script src="js/graphlib.core.js"></script>
+  <script src="js/dagre.core.js"></script>
+  <script src="js/rappid.min.js"></script>
+
+  <style type="text/css">
+  #paper {
+  display: inline-block;
+  border: 1px solid gray;
+  }
+  .element .element-tools {
+  display: none;
+  cursor: pointer
+  }
+  .element:hover .element-tools {
+  display: inline;
+  }
+  </style>
+    </head>
+   
+    <body>
+        <div id="myholder"></div>
+        <div id="paper"></div>
+        <div id="paper-link"></div>
+        <div id="paper-holder-create"/>
+     
+        <script type="text/javascript">
+            var graph = new joint.dia.Graph;
+           
+            graph.on('change:source change:target', function(link) {
+                if (link.get('source').id && link.get('target').id) {
+                // both ends of the link are connected.
+                alert("Node Connected");
+                }
+            })
+
+            var paper = new joint.dia.Paper({
+                el: $('#paper-holder-create'),
+                width: 2000,
+                height: 2000,
+                gridSize: 1,
+                model: graph,
+                defaultLink: new joint.dia.Link({
+                    smooth: true,
+                    attrs: {
+                    '.marker-target': { 
+                        stroke: '#E74C3C', 
+                        fill: '#E74C3C', 
+                        d: 'M 14 0 L 0 7 L 14 14 z' },
+                    '.connection': { 
+                        stroke: '#E74C3C', 
+                        'stroke-width': 2 
+                        },
+                    },
+                    labels: [{ 
+                        position: .5, 
+                        attrs: { 
+                            text: { 
+                                text: 'link', 
+                                'font-weight': 'bold' 
+                            } 
+                        } 
+                    }]
+                })
+            });
+   
+    paper.on('cell:pointerup', function(cellView) {
+        // We don't want a Halo for links.
+        if (cellView.model instanceof joint.dia.Link) return;
+
+        var halo = new joint.ui.Halo({
+            cellView: cellView
+        });
+        halo.render();
+    });
+
+    var r = new joint.shapes.basic.Rect({
+        position: {
+            x: 50,
+            y: 50
+        },
+        size: {
+            width: 70,
+            height: 40
+        },
+        attrs: {
+            rect: {
+                fill: '#31D0C6',
+                stroke: '#4B4A67',
+                'stroke-width': 2
+            },
+            text: {
+                text: 'rect',
+                fill: 'white'
+            }
+        }
+    });
+    var c = new joint.shapes.basic.Circle({
+        position: {
+            x: 220,
+            y: 150
+        },
+        size: {
+            width: 70,
+            height: 40
+        },
+        attrs: {
+            circle: {
+                fill: '#FE854F',
+                'stroke-width': 2,
+                stroke: '#4B4A67'
+            },
+            text: {
+                text: 'ellipse',
+                fill: 'white'
+            }
+        }
+    });
+
+    graph.addCells([r, c]);
+
+     new joint.ui.Halo({
+        cellView: paper.findViewByModel(r)
+    }).render();
+            </script>
+        </body>
+    </html>
